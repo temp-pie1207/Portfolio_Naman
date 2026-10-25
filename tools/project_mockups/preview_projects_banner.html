@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects Showcase Preview</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .font-mono { font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body class="bg-[#EFEFEF] w-[1440px] h-[757px] overflow-hidden m-0 p-10 flex flex-col justify-between box-border select-none">
+  <!-- Header -->
+  <div class="flex items-center justify-between border-b border-neutral-300 pb-4">
+    <div>
+      <span class="text-[11px] font-mono tracking-widest uppercase text-neutral-500 font-bold">PROJECTS SHOWCASE</span>
+      <h2 class="text-4xl font-black uppercase tracking-tight text-neutral-900 leading-none mt-1">FEATURED PROJECTS</h2>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="px-3.5 py-1.5 rounded-full bg-black text-white text-[11px] font-mono font-bold uppercase">LIQUID WEBGL ENGINE</span>
+      <span class="px-3.5 py-1.5 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono font-bold uppercase">11 CURATED PROJECTS</span>
+    </div>
+  </div>
+
+  <!-- Simulated Curved 3D Carousel Stage with 3 Realistic Cards -->
+  <div class="flex-1 my-4 flex items-center justify-center gap-6 relative">
+    <!-- Card 1 (Left / Angled): Smart Ambulance System -->
+    <div class="w-[380px] h-[480px] rounded-3xl bg-[#0A0D14] border border-neutral-300 shadow-2xl overflow-hidden flex flex-col transform -rotate-3 scale-95 opacity-85 transition-all">
+      <div class="h-[340px] overflow-hidden relative">
+        <img src="Project Images/smart_ambulance.png" alt="Smart Ambulance" class="w-full h-full object-cover object-top">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0A0D14] via-transparent to-transparent"></div>
+      </div>
+      <div class="p-5 flex-1 flex flex-col justify-between bg-[#0A0D14]">
+        <div>
+          <span class="text-[10px] font-mono uppercase text-rose-400 font-bold block mb-1">REAL-TIME GPS LOCATOR</span>
+          <h3 class="text-base font-black uppercase text-white tracking-tight">Smart Ambulance System</h3>
+        </div>
+        <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 pt-2 border-t border-neutral-800">
+          <span>React &bull; Node.js &bull; GPS</span>
+          <span class="text-neutral-500">02 / 11</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 (Center Active): RAG & LLM Chat App -->
+    <div class="w-[480px] h-[520px] rounded-3xl bg-[#0B0D13] border-2 border-neutral-900 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] overflow-hidden flex flex-col transform scale-105 z-20">
+      <div class="h-[370px] overflow-hidden relative">
+        <img src="Project Images/rag_chat_app.png" alt="RAG & LLM Chat App" class="w-full h-full object-cover object-top">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0B0D13] via-transparent to-transparent"></div>
+        <div class="absolute top-4 right-4 bg-cyan-500/20 border border-cyan-500/40 px-3 py-1 rounded-full text-[10px] font-mono font-bold text-cyan-300 backdrop-blur-md">
+          ● ACTIVE PREVIEW
+        </div>
+      </div>
+      <div class="p-6 flex-1 flex flex-col justify-between bg-[#0B0D13]">
+        <div>
+          <span class="text-[11px] font-mono uppercase text-cyan-400 font-bold block mb-1">CONVERSATIONAL AI PIPELINE</span>
+          <h3 class="text-xl font-black uppercase text-white tracking-tight">RAG &amp; LLM Chat App</h3>
+        </div>
+        <div class="flex items-center justify-between text-xs font-mono text-neutral-400 pt-3 border-t border-neutral-800">
+          <span>React &bull; FastAPI &bull; OpenAI &bull; Gemini</span>
+          <span class="text-cyan-400 font-bold">01 / 11</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 (Right / Angled): MindMantra Mental Health App -->
+    <div class="w-[380px] h-[480px] rounded-3xl bg-[#0C0E17] border border-neutral-300 shadow-2xl overflow-hidden flex flex-col transform rotate-3 scale-95 opacity-85 transition-all">
+      <div class="h-[340px] overflow-hidden relative">
+        <img src="Project Images/mind_mantra.png" alt="MindMantra Health App" class="w-full h-full object-cover object-top">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0C0E17] via-transparent to-transparent"></div>
+      </div>
+      <div class="p-5 flex-1 flex flex-col justify-between bg-[#0C0E17]">
+        <div>
+          <span class="text-[10px] font-mono uppercase text-teal-400 font-bold block mb-1">MENTAL WELLNESS PLATFORM</span>
+          <h3 class="text-base font-black uppercase text-white tracking-tight">MindMantra Health App</h3>
+        </div>
+        <div class="flex items-center justify-between text-[10px] font-mono text-neutral-400 pt-2 border-t border-neutral-800">
+          <span>FastAPI &bull; PostgreSQL &bull; React</span>
+          <span class="text-neutral-500">03 / 11</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="flex items-center justify-between border-t border-neutral-300 pt-3 text-[11px] font-mono text-neutral-500">
+    <div>DRAG TO DISPLACE &bull; ACCORDION SPRINGS &bull; DEEP PROJECT INSPECTOR</div>
+    <div>ENGINEERED BY NAMAN &bull; FULL STACK &amp; AI/ML</div>
+  </div>
+</body>
+</html>

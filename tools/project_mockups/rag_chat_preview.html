@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG & LLM Chat App</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body class="bg-[#0B0D13] text-neutral-100 w-[1920px] h-[865px] overflow-hidden m-0 p-8 flex flex-col justify-between box-border select-none">
+  <!-- Top Navigation & System HUD -->
+  <header class="flex items-center justify-between border-b border-neutral-800/80 pb-5 px-4">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center font-black text-white shadow-lg shadow-cyan-500/20">
+        AI
+      </div>
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-xl font-bold tracking-tight text-white uppercase">RAG &amp; LLM Conversational Pipeline</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+            ● ONLINE &bull; 14ms LATENCY
+          </span>
+        </div>
+        <p class="text-xs text-neutral-400 font-medium">FastAPI Backend &bull; LangChain &bull; Hybrid Vector Search &bull; Dual OpenAI + Gemini Telemetry</p>
+      </div>
+    </div>
+
+    <!-- Active Telemetry Badges -->
+    <div class="flex items-center gap-3">
+      <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl px-4 py-2 flex items-center gap-3">
+        <span class="text-[11px] text-neutral-400 uppercase font-mono">Model Engine:</span>
+        <span class="text-xs font-bold text-cyan-400 font-mono">Gemini-1.5-Pro / GPT-4o</span>
+      </div>
+      <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl px-4 py-2 flex items-center gap-3">
+        <span class="text-[11px] text-neutral-400 uppercase font-mono">Embedding:</span>
+        <span class="text-xs font-bold text-purple-400 font-mono">text-embedding-3-large (1536d)</span>
+      </div>
+      <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl px-4 py-2 flex items-center gap-3">
+        <span class="text-[11px] text-neutral-400 uppercase font-mono">CORS / Auth:</span>
+        <span class="text-xs font-bold text-emerald-400 font-mono">JWT Bearer &bull; Enabled</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body: Two-Column Split (Chat Console + RAG Retrieval Inspector) -->
+  <main class="grid grid-cols-12 gap-6 flex-1 py-6 px-2 overflow-hidden">
+    <!-- Left Column: Interactive Chat Stream (Col 7) -->
+    <div class="col-span-7 flex flex-col justify-between bg-neutral-950/70 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl backdrop-blur-sm relative">
+      <div class="space-y-5 overflow-hidden">
+        <!-- User Message -->
+        <div class="flex items-start gap-3.5">
+          <div class="w-8 h-8 rounded-lg bg-neutral-800 border border-neutral-700 flex items-center justify-center text-xs font-bold text-neutral-300 shrink-0">
+            YOU
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800/90 rounded-2xl rounded-tl-sm px-5 py-3 max-w-xl text-neutral-200 text-sm leading-relaxed">
+            How does our FastAPI backend handle concurrent streaming tokens from OpenAI and Gemini while maintaining context retrieval history?
+          </div>
+        </div>
+
+        <!-- AI Assistant Streaming Message -->
+        <div class="flex items-start gap-3.5">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-md shadow-cyan-500/30">
+            RAG
+          </div>
+          <div class="bg-[#121622]/90 border border-cyan-500/30 rounded-2xl rounded-tl-sm p-5 max-w-2xl text-neutral-100 text-sm leading-relaxed shadow-lg">
+            <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+              <span class="text-xs font-mono font-semibold text-cyan-400">Synthesized from 4 Retrieved Chunks (Cosine Sim: 0.942)</span>
+              <span class="text-[11px] font-mono text-neutral-400">Tokens: 418 &bull; Stream: 84 tok/sec</span>
+            </div>
+            <p class="text-neutral-300 mb-3">
+              The pipeline uses asynchronous FastAPI WebSockets with LangChain's <code class="text-cyan-300 font-mono text-xs bg-cyan-950/60 px-1.5 py-0.5 rounded">AsyncIteratorCallbackHandler</code>. Query embeddings are generated in real-time, matched against pgvector indices, and prepended into the dynamic system prompt:
+            </p>
+            <div class="bg-black/60 border border-neutral-800 rounded-xl p-3 font-mono text-xs text-neutral-300 overflow-hidden">
+              <span class="text-neutral-500"># Async Generator Streaming Context</span><br>
+              <span class="text-indigo-400">async def</span> <span class="text-amber-300">stream_rag_response</span>(query: str, session_id: str):<br>
+              &nbsp;&nbsp;docs = <span class="text-indigo-400">await</span> vector_store.asimilarity_search_with_relevance_scores(query, k=<span class="text-cyan-400">4</span>)<br>
+              &nbsp;&nbsp;<span class="text-indigo-400">async for</span> chunk <span class="text-indigo-400">in</span> llm_chain.astream({"input": query, "context": docs}):<br>
+              &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-indigo-400">yield</span> f"data: {chunk.content}\n\n"
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chat Input Mockup -->
+      <div class="mt-4 pt-3 border-t border-neutral-800/80 flex items-center gap-3">
+        <div class="flex-1 bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-2.5 flex items-center justify-between text-neutral-400 text-sm">
+          <span>Ask anything about documents, pipeline architecture, or live endpoints...</span>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono bg-neutral-800 text-neutral-400 px-2 py-0.5 rounded border border-neutral-700">⌘K RAG</span>
+            <span class="text-[10px] font-mono bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded border border-cyan-500/30">Streaming ON</span>
+          </div>
+        </div>
+        <button class="bg-cyan-500 hover:bg-cyan-400 text-black font-bold px-5 py-2.5 rounded-xl text-sm transition">
+          SEND ↗
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column: RAG Pipeline Telemetry & Vector Inspector (Col 5) -->
+    <div class="col-span-5 flex flex-col gap-4">
+      <!-- Top Inspector Card: Vector Match Visualizer -->
+      <div class="bg-neutral-950/70 border border-neutral-800/80 rounded-2xl p-5 shadow-2xl backdrop-blur-sm flex-1 flex flex-col justify-between">
+        <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></div>
+            <span class="text-xs font-bold uppercase tracking-wider text-white">Vector Retrieval Chunks</span>
+          </div>
+          <span class="text-[11px] font-mono text-cyan-400">Top-k: 4 &bull; Threshold: 0.82</span>
+        </div>
+
+        <!-- Chunks List -->
+        <div class="space-y-2.5 my-3">
+          <div class="bg-neutral-900/90 border border-cyan-500/30 rounded-xl p-3">
+            <div class="flex items-center justify-between text-[11px] font-mono mb-1">
+              <span class="text-cyan-400 font-bold">chunk_doc_048.md #auth-layer</span>
+              <span class="text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30">Score: 0.942</span>
+            </div>
+            <p class="text-xs text-neutral-300 line-clamp-2">"Resolving CORS headers and handling JWT authentication in FastAPI middleware with origins whitelist..."</p>
+          </div>
+
+          <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-3">
+            <div class="flex items-center justify-between text-[11px] font-mono mb-1">
+              <span class="text-neutral-300 font-bold">chunk_doc_012.md #streaming</span>
+              <span class="text-cyan-400 font-bold bg-cyan-500/10 px-1.5 py-0.5 rounded border border-cyan-500/30">Score: 0.891</span>
+            </div>
+            <p class="text-xs text-neutral-400 line-clamp-2">"Server-Sent Events (SSE) stream buffer management for Gemini and OpenAI multi-turn conversation payloads..."</p>
+          </div>
+
+          <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-3">
+            <div class="flex items-center justify-between text-[11px] font-mono mb-1">
+              <span class="text-neutral-300 font-bold">chunk_doc_093.md #embeddings</span>
+              <span class="text-purple-400 font-bold bg-purple-500/10 px-1.5 py-0.5 rounded border border-purple-500/30">Score: 0.854</span>
+            </div>
+            <p class="text-xs text-neutral-400 line-clamp-2">"Hierarchical chunking strategy with 512 token splits and 64 token sliding window overlap..."</p>
+          </div>
+        </div>
+
+        <!-- Telemetry Metrics Grid -->
+        <div class="grid grid-cols-3 gap-3 border-t border-neutral-800 pt-3 text-center">
+          <div class="bg-neutral-900/80 p-2.5 rounded-xl border border-neutral-800/80">
+            <span class="block text-[10px] font-mono text-neutral-500 uppercase">Search Latency</span>
+            <span class="text-sm font-bold font-mono text-cyan-400">12.4 ms</span>
+          </div>
+          <div class="bg-neutral-900/80 p-2.5 rounded-xl border border-neutral-800/80">
+            <span class="block text-[10px] font-mono text-neutral-500 uppercase">Embedding Dim</span>
+            <span class="text-sm font-bold font-mono text-purple-400">1,536</span>
+          </div>
+          <div class="bg-neutral-900/80 p-2.5 rounded-xl border border-neutral-800/80">
+            <span class="block text-[10px] font-mono text-neutral-500 uppercase">Index Health</span>
+            <span class="text-sm font-bold font-mono text-emerald-400">99.98%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Brand Status Bar -->
+  <footer class="border-t border-neutral-800/80 pt-3 px-4 flex items-center justify-between text-[11px] font-mono text-neutral-500">
+    <div>ENGINEERED BY NAMAN &bull; FULL STACK &amp; AI/ML &bull; NOV 2025 - JAN 2026</div>
+    <div class="flex items-center gap-4">
+      <span>REACT FRONTEND</span>
+      <span>&bull;</span>
+      <span>FASTAPI / PYTHON BACKEND</span>
+      <span>&bull;</span>
+      <span>OPENAI &amp; GEMINI APIS</span>
+    </div>
+  </footer>
+</body>
+</html>

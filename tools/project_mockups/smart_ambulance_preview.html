@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Ambulance Management System</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  code, pre, .font-mono { font-family: 'JetBrains Mono', monospace; }
+</style>
+</head>
+<body class="bg-[#0A0D14] text-neutral-100 w-[1920px] h-[865px] overflow-hidden m-0 p-8 flex flex-col justify-between box-border select-none">
+  <!-- Top Navigation & System HUD -->
+  <header class="flex items-center justify-between border-b border-neutral-800/80 pb-5 px-4">
+    <div class="flex items-center gap-4">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-amber-500 flex items-center justify-center font-black text-white shadow-lg shadow-rose-500/20">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-linecap="round"></path></svg>
+      </div>
+      <div>
+        <div class="flex items-center gap-3">
+          <h1 class="text-xl font-bold tracking-tight text-white uppercase">SMART AMBULANCE FLEET &amp; EMERGENCY DISPATCH</h1>
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium bg-rose-500/10 border border-rose-500/30 text-rose-400 animate-pulse">
+            ● EMERGENCY DISPATCH ACTIVE &bull; GPS LOCK: 100%
+          </span>
+        </div>
+        <p class="text-xs text-neutral-400 font-medium">Real-Time Vehicle Telemetry &bull; Nearest Hospital Bed Matching &bull; Active Doctor Roster &bull; React &amp; Node.js</p>
+      </div>
+    </div>
+
+    <!-- Active Telemetry Badges -->
+    <div class="flex items-center gap-3">
+      <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl px-4 py-2 flex items-center gap-3">
+        <span class="text-[11px] text-neutral-400 uppercase font-mono">Active Units:</span>
+        <span class="text-xs font-bold text-emerald-400 font-mono">14 Ambulances On-Grid</span>
+      </div>
+      <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl px-4 py-2 flex items-center gap-3">
+        <span class="text-[11px] text-neutral-400 uppercase font-mono">Network Hospitals:</span>
+        <span class="text-xs font-bold text-cyan-400 font-mono">8 Partner Centers</span>
+      </div>
+      <div class="bg-neutral-900/90 border border-neutral-800 rounded-xl px-4 py-2 flex items-center gap-3">
+        <span class="text-[11px] text-neutral-400 uppercase font-mono">Avg Response:</span>
+        <span class="text-xs font-bold text-amber-400 font-mono">4.2 min (Priority 1)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body: Two-Column Split (Live GPS Map Viewport + Hospital & Unit HUD) -->
+  <main class="grid grid-cols-12 gap-6 flex-1 py-6 px-2 overflow-hidden">
+    <!-- Left Column: High-Tech Dark Map Viewport (Col 7) -->
+    <div class="col-span-7 flex flex-col justify-between bg-neutral-950/80 border border-neutral-800/80 rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+      <!-- Simulated Dark GPS Grid Canvas -->
+      <div class="absolute inset-0 opacity-25 pointer-events-none" style="background-image: radial-gradient(#38bdf8 1px, transparent 1px), linear-gradient(to right, #1e293b 1px, transparent 1px), linear-gradient(to bottom, #1e293b 1px, transparent 1px); background-size: 40px 40px, 80px 80px, 80px 80px;"></div>
+
+      <!-- Top Map HUD -->
+      <div class="relative z-10 flex items-center justify-between">
+        <div class="bg-black/80 border border-neutral-700/80 rounded-xl px-4 py-2 backdrop-blur-md flex items-center gap-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+          <span class="text-xs font-mono font-bold text-white uppercase">DISPATCH UNIT: AMB-04</span>
+          <span class="text-neutral-500 font-mono">|</span>
+          <span class="text-xs font-mono text-emerald-400">LAT: 28.4595° N, LON: 77.0266° E</span>
+        </div>
+        <div class="bg-black/80 border border-neutral-700/80 rounded-xl px-3 py-1.5 backdrop-blur-md text-[11px] font-mono text-neutral-400">
+          SPEED: <span class="text-white font-bold">68 KM/H</span> &bull; HEADING: <span class="text-white font-bold">NORTH-WEST</span>
+        </div>
+      </div>
+
+      <!-- Center Vector Graphic Map Simulation -->
+      <div class="relative z-10 my-auto flex items-center justify-center">
+        <svg class="w-full max-h-[360px]" viewBox="0 0 700 360" fill="none">
+          <!-- Road Network lines -->
+          <path d="M 50 180 Q 200 120 350 200 T 650 140" stroke="#334155" stroke-width="6" stroke-linecap="round"></path>
+          <path d="M 120 40 L 220 320" stroke="#1e293b" stroke-width="4"></path>
+          <path d="M 520 40 L 460 320" stroke="#1e293b" stroke-width="4"></path>
+          <path d="M 280 40 L 380 320" stroke="#334155" stroke-width="5"></path>
+          
+          <!-- Active Emergency Route (Glowing Cyan / Amber) -->
+          <path d="M 160 210 Q 260 160 380 180 T 540 120" stroke="#06b6d4" stroke-width="4" stroke-dasharray="8 4" stroke-linecap="round" class="animate-pulse"></path>
+
+          <!-- Hospital Node: Metro City General -->
+          <g transform="translate(540, 120)">
+            <circle r="22" fill="#0f172a" stroke="#10b981" stroke-width="2"></circle>
+            <circle r="32" fill="none" stroke="#10b981" stroke-width="1" opacity="0.3"></circle>
+            <path d="M -8 0 H 8 M 0 -8 V 8" stroke="#10b981" stroke-width="3" stroke-linecap="round"></path>
+            <text x="32" y="-4" fill="#ffffff" font-size="12" font-weight="700" font-family="'Plus Jakarta Sans', sans-serif">METRO GENERAL HOSPITAL</text>
+            <text x="32" y="12" fill="#10b981" font-size="10" font-weight="600" font-family="'JetBrains Mono', monospace">ETA: 3.8 MIN &bull; 14 BEDS OPEN</text>
+          </g>
+
+          <!-- Emergency Incident Node -->
+          <g transform="translate(160, 210)">
+            <circle r="18" fill="#450a0a" stroke="#f43f5e" stroke-width="2"></circle>
+            <circle r="28" fill="none" stroke="#f43f5e" stroke-width="1.5" opacity="0.4" class="animate-ping"></circle>
+            <text x="-4" y="5" fill="#ffffff" font-size="12" font-weight="900">!</text>
+            <text x="-80" y="38" fill="#fda4af" font-size="10" font-weight="600" font-family="'JetBrains Mono', monospace">INCIDENT #902 &bull; CODE RED</text>
+          </g>
+
+          <!-- Ambulance Unit AMB-04 Moving -->
+          <g transform="translate(360, 175)">
+            <rect x="-18" y="-12" width="36" height="24" rx="6" fill="#f43f5e" stroke="#ffffff" stroke-width="2" shadow="0 0 15px #f43f5e"></rect>
+            <text x="-12" y="4" fill="#ffffff" font-size="10" font-weight="900" font-family="'JetBrains Mono', monospace">AMB</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Bottom Map Status Bar -->
+      <div class="relative z-10 flex items-center justify-between border-t border-neutral-800/80 pt-3">
+        <div class="flex items-center gap-4 text-xs font-mono">
+          <span class="text-neutral-400">Target ETA: <strong class="text-cyan-400">3.8 mins</strong></span>
+          <span class="text-neutral-400">Distance: <strong class="text-white">2.4 km</strong></span>
+          <span class="text-neutral-400">Route Status: <strong class="text-emerald-400">Clear Corridor</strong></span>
+        </div>
+        <div class="text-[11px] font-mono text-neutral-500">LIVE GPS STREAM &bull; WEBSOCKET SYNC</div>
+      </div>
+    </div>
+
+    <!-- Right Column: Hospital Capacity & Medical Doctors Roster (Col 5) -->
+    <div class="col-span-5 flex flex-col gap-4">
+      <!-- Hospital Capacity Inspector -->
+      <div class="bg-neutral-950/80 border border-neutral-800/80 rounded-2xl p-5 shadow-2xl flex-1 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between border-b border-neutral-800 pb-3 mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-white">Nearest Hospital Bed &amp; Doctor Telemetry</span>
+            </div>
+            <span class="text-[11px] font-mono text-emerald-400">LIVE SYNC</span>
+          </div>
+
+          <!-- Hospital Cards -->
+          <div class="space-y-3">
+            <!-- Card 1 -->
+            <div class="bg-neutral-900/90 border border-emerald-500/30 rounded-xl p-3.5">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <span class="text-xs font-bold text-white">Metro General Hospital</span>
+                  <span class="text-[10px] font-mono text-neutral-400 block">Distance: 1.4 km &bull; 3.8 min drive</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">RECOMMENDED</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-2 pt-2 border-t border-neutral-800 text-center font-mono">
+                <div class="bg-black/40 p-1.5 rounded">
+                  <span class="text-[10px] text-neutral-500 block">ICU BEDS</span>
+                  <span class="text-xs font-bold text-rose-400">4 Open</span>
+                </div>
+                <div class="bg-black/40 p-1.5 rounded">
+                  <span class="text-[10px] text-neutral-500 block">GENERAL BEDS</span>
+                  <span class="text-xs font-bold text-emerald-400">14 Open</span>
+                </div>
+                <div class="bg-black/40 p-1.5 rounded">
+                  <span class="text-[10px] text-neutral-500 block">ON-DUTY DRS</span>
+                  <span class="text-xs font-bold text-cyan-400">6 Active</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-3.5">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <span class="text-xs font-bold text-neutral-200">Apex Multi-Specialty Trauma</span>
+                  <span class="text-[10px] font-mono text-neutral-500 block">Distance: 3.2 km &bull; 7.1 min drive</span>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono text-neutral-400 bg-neutral-800">SECONDARY</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-2 pt-2 border-t border-neutral-800 text-center font-mono">
+                <div class="bg-black/40 p-1.5 rounded">
+                  <span class="text-[10px] text-neutral-500 block">ICU BEDS</span>
+                  <span class="text-xs font-bold text-amber-400">2 Open</span>
+                </div>
+                <div class="bg-black/40 p-1.5 rounded">
+                  <span class="text-[10px] text-neutral-500 block">GENERAL BEDS</span>
+                  <span class="text-xs font-bold text-emerald-400">9 Open</span>
+                </div>
+                <div class="bg-black/40 p-1.5 rounded">
+                  <span class="text-[10px] text-neutral-500 block">ON-DUTY DRS</span>
+                  <span class="text-xs font-bold text-cyan-400">4 Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Driver Action Footer -->
+        <div class="mt-4 pt-3 border-t border-neutral-800 flex items-center justify-between">
+          <div class="text-[11px] font-mono text-neutral-400">
+            DISPATCH ROUTE: <span class="text-emerald-400 font-bold">LOCKED &amp; BROADCAST</span>
+          </div>
+          <button class="bg-rose-500 hover:bg-rose-400 text-white font-bold px-4 py-2 rounded-xl text-xs transition uppercase font-mono">
+            ALERT ER DOCTORS ↗
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bottom Brand Status Bar -->
+  <footer class="border-t border-neutral-800/80 pt-3 px-4 flex items-center justify-between text-[11px] font-mono text-neutral-500">
+    <div>ENGINEERED BY NAMAN &bull; FULL STACK &amp; IOT &bull; DEC 2025 - PRESENT</div>
+    <div class="flex items-center gap-4">
+      <span>REACT FRONTEND</span>
+      <span>&bull;</span>
+      <span>NODE.JS &amp; EXPRESS BACKEND</span>
+      <span>&bull;</span>
+      <span>MONGODB &amp; REAL-TIME GPS REST APIS</span>
+    </div>
+  </footer>
+</body>
+</html>

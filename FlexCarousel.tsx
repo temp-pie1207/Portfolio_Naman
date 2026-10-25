@@ -130,7 +130,7 @@ const photo = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80&aut
 
 export const DEFAULT_ITEMS: FlexCarouselItem[] = [
   {
-    src: 'Project Images/Design Studio.png',
+    src: 'Project Images/rag_chat_app.png',
     alt: 'Chat Application with RAG & LLM Integration',
     title: 'RAG & LLM Chat App',
     subtitle: 'Conversational AI & Retrieval Pipeline',
@@ -138,7 +138,7 @@ export const DEFAULT_ITEMS: FlexCarouselItem[] = [
     link: '#projects'
   },
   {
-    src: 'Project Images/Cafe Website.png',
+    src: 'Project Images/smart_ambulance.png',
     alt: 'Smart Ambulance Management System',
     title: 'Smart Ambulance System',
     subtitle: 'Real-Time GPS Emergency Vehicle Locator',
@@ -146,7 +146,7 @@ export const DEFAULT_ITEMS: FlexCarouselItem[] = [
     link: '#projects'
   },
   {
-    src: 'Project Images/Sen Cruzo-Client Portfolio.png',
+    src: 'Project Images/mind_mantra.png',
     alt: 'MindMantra Mental Health Web Application',
     title: 'MindMantra Health App',
     subtitle: 'Full-Stack Mental Wellness Platform',
@@ -154,7 +154,7 @@ export const DEFAULT_ITEMS: FlexCarouselItem[] = [
     link: '#projects'
   },
   {
-    src: 'Project Images/Portfolio Design.png',
+    src: 'Project Images/facial_recognition.png',
     alt: 'Facial Detection & Recognition System',
     title: 'Facial Recognition AI',
     subtitle: 'Computer Vision & Biometric Pipeline',
@@ -162,7 +162,7 @@ export const DEFAULT_ITEMS: FlexCarouselItem[] = [
     link: '#projects'
   },
   {
-    src: 'Project Images/Portfolio Website.png',
+    src: 'Project Images/naman_portfolio.png',
     alt: 'Personal Portfolio Website',
     title: 'Editorial Portfolio',
     subtitle: 'Monochrome Kinetic Portfolio',
@@ -170,7 +170,7 @@ export const DEFAULT_ITEMS: FlexCarouselItem[] = [
     link: '#home'
   },
   {
-    src: 'Project Images/Photographer Portfolio.png',
+    src: 'Project Images/content_video_studio.png',
     alt: 'Content Creation & Video Production Showcase',
     title: 'Content & Video Studio',
     subtitle: 'Tech Education & AI Avatar Production',
